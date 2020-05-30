@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 
 import javax.websocket.server.PathParam;
+import java.util.HashSet;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 public class TodoRestController {
@@ -19,8 +21,11 @@ public class TodoRestController {
     @GetMapping("/todos")
     public PagingResult<Todo> getTodos(){
         PagingResult<Todo> result = new PagingResult<>();
-
-
+        Set<Todo> todos = new HashSet<>();
+        for (Todo todo : todoRepository.findAll()) {
+            todos.add(todo);
+        }
+        result.setValues(todos);
         return result;
     }
 
