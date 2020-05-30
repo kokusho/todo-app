@@ -8,11 +8,11 @@
 		<version>2.3.0.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.example</groupId>
-	<artifactId>demo</artifactId>
+	<groupId>de.webtech</groupId>
+	<artifactId>todo-app</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>demo</name>
-	<description>Demo project for Spring Boot</description>
+	<name>todo-app</name>
+	<description>TodoApp Webtech 2</description>
 
 	<properties>
 		<java.version>11</java.version>
