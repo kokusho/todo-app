@@ -7,7 +7,7 @@ https://start.spring.io/
 # Angular Frontend
 https://medium.com/@majdasab/integrating-an-angular-project-with-spring-boot-e3a043b7307b
 
-#Herangehensweise
+# Herangehensweise
 1. Spring Boot Projekt mit Spring Initializer aufgesetzt
 2. Angular App erstellt und dafür gesorgt dass es von Maven mitgebaut wird beim deploy.
 3. Datenbank Verbindung eingerichtet und grundlegendes DTO für ein Todo implementiert.
