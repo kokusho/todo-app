@@ -1,11 +1,11 @@
 package de.webtech.todo;
 
+import de.webtech.entities.Todo;
 import de.webtech.util.PagingResult;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.client.HttpClientErrorException;
 
 import javax.websocket.server.PathParam;
 import java.util.HashSet;
@@ -13,6 +13,7 @@ import java.util.Optional;
 import java.util.Set;
 
 @RestController
+@RequestMapping("/rest/todos")
 public class TodoRestController {
 
     @Autowired

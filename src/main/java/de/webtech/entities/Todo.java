@@ -1,4 +1,4 @@
-package de.webtech.todo;
+package de.webtech.entities;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
