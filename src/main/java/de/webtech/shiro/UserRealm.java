@@ -36,6 +36,7 @@ public class UserRealm extends AuthorizingRealm {
         }
         Optional<User> userOpt = userRepository.findById(token.getUsername());
         //TODO check password too, i guess?
+        //TODO [optional] hash passwords
         if(userOpt.isEmpty()){
             log.warn("Tried to authenticate a user, but user was not found.");
             throw new UnknownAccountException();

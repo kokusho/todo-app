@@ -7,10 +7,9 @@ import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/rest/users")
@@ -21,45 +20,25 @@ public class UserRestController {
     UserRepository userRepository;
 
     @PostMapping("/register")
-    public boolean registerUser(@RequestBody LoginInfo user){
-        if(!user.isValid()){
-            log.info("Cannot register user. User is invalid.");
-            //TODO implement error handling also consider checking for uniqueness
-            return false;
-        }
+    public User registerUser(@Valid @RequestBody User user){
         User dbUser = new User();
         dbUser.setUsername(user.getUsername());
         dbUser.setPassword(user.getPassword());
-        try {
-            userRepository.save(dbUser);
-            log.info("Successfully registered a new user: " + dbUser.getUsername());
-            return true;
-        } catch(Exception e){
-            log.error("Could not register the user: " + dbUser.getUsername(), e);
-            return false;
-        }
+
+        userRepository.save(dbUser);
+        log.info("Successfully registered a new user: " + dbUser.getUsername());
+        return dbUser;
     }
 
     @PostMapping("/login")
-    public boolean loginUser(@RequestBody LoginInfo user){
+    public User loginUser(@Valid @RequestBody User user, @RequestBody Boolean rememberMe){
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
-        token.setRememberMe(true);
+        token.setRememberMe(rememberMe.booleanValue());
 
-        try {
-            currentUser.login( token );
-            log.info("Successfully logged in user: " + token.getUsername());
-            return true;
-        } catch ( UnknownAccountException uae ) {
-            //username wasn't in the system, show them an error message?
-        } catch ( IncorrectCredentialsException ice ) {
-            //password didn't match, try again?
-        } catch ( LockedAccountException lae ) {
-            //account for that username is locked - can't login.  Show them a message?
-        } catch ( AuthenticationException ae ) {
-            //unexpected condition - error?
-        }
-        return false;
+        currentUser.login( token );
+        log.info("Successfully logged in user: " + token.getUsername());
+        return new User(token.getUsername(), new String(token.getPassword()));
     }
 
     @PostMapping("/logout")
@@ -68,5 +47,15 @@ public class UserRestController {
         log.info("User logged out: " + currentUser.getPrincipal().toString());
         currentUser.logout();
         return true;
+    }
+
+    //FIXME for debug purposes only
+    @GetMapping("/whoami")
+    public String whoami(){
+        Subject subject = SecurityUtils.getSubject();
+        if(subject.isAuthenticated())
+            return (String) subject.getPrincipal();
+        else
+            return "YOU ARE NOT AUTHENTICATED!";
     }
 }
