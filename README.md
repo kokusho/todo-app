@@ -14,3 +14,4 @@ https://medium.com/@majdasab/integrating-an-angular-project-with-spring-boot-e3a
 4. Grundlegenden RestController für Basis-Crud Funktionalität für Todos eingebaut.
 5. Apache Shiro Abhängigkeiten hinzugefügt + shiro.ini
 6. Dafür gesorgt dass shiro user aus der db liest
+7. Einfache login und register Formulare in Angular gebaut
