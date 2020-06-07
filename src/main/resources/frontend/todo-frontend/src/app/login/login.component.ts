@@ -27,9 +27,9 @@ export class LoginComponent implements OnInit {
     console.log("FORM VALUES: ", this.loginForm.value);
     let user: User = {
       username: this.loginForm.value.username,
-      password: this.loginForm.value.password
+      password: this.loginForm.value.password,
     }
-    userService.doLoginUser(user).subscribe(result => {
+    userService.doLoginUser(user, this.loginForm.value.rememberMe).subscribe(result => {
       console.log("successfully logged in..");
       //TODO redirect/route to dashboard 
     });
