@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './models/User';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { Observable, of } from 'rxjs';
+import { MessageType, Message } from './models/Message';
 
 @Injectable({
   providedIn: 'root'
@@ -19,24 +20,29 @@ export class UserService {
     };
 
     /** Log a UserService message with the MessageService */
-    private log(message: string) {
-      this.messageService.add(`UserService: ${message}`);
+    private log(message: string, m_type: MessageType) {
+      let msg: Message = {
+        message: `UserService: ${message}`,
+        type: m_type
+      }
+      this.messageService.add(msg);
     }
 
     private userUrl = "rest/users"; //URL to web api
 
-    doLoginUser(u: User): Observable<User>{
-      return this.http.post<User>(this.userUrl + "/login", u, this.httpOptions)
+    doLoginUser(u: User, rememberMe: Boolean): Observable<User>{
+      return this.http.post<User>(this.userUrl + "/login?rememberMe=" + rememberMe, u, this.httpOptions)
        .pipe(
-        tap((newUser: User) => this.log('User logged in: ${newUser.username}')),
+        tap((newUser: User) => this.log(`User logged in: ${newUser.username}`, MessageType.Success)),
         catchError(this.handleError<User>('loginUser'))
        );
     }
 
     registerUser( u : User): Observable<User>{
+      console.log("Calling backend to register a user", u);
       return this.http.post<User>(this.userUrl + "/register", u, this.httpOptions)
        .pipe(
-        tap((newUser: User) => this.log('Successfully registered a new user: ${newUser.username}')),
+        tap((newUser: User) => this.log(`Successfully registered a new user: ${newUser.username}`, MessageType.Success)),
         catchError(this.handleError<User>('registerUser'))
        );
     }
@@ -48,7 +54,7 @@ export class UserService {
         console.error(error); // log to console instead
     
         // TODO: better job of transforming error for user consumption
-        this.log(`${operation} failed: ${error.message}`);
+        this.log(`${operation} failed: ${error.message}`, MessageType.Danger);
     
         // Let the app keep running by returning an empty result.
         return of(result as T);

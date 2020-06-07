@@ -1,10 +1,8 @@
-<div *ngIf="messageService.messages.length">
-
-  <h2>Messages</h2>
-  <button class="clear"
-          (click)="messageService.clear()">clear</button>
-  <div *ngFor='let message of messageService.messages'> {{message}} </div>
-
-  <!-- TODO rework this into x-able snackbars/toasts and add remove method to method service -->
-
+<div *ngIf="messageService.messages.length" class="center">
+  <div *ngFor='let message of messageService.messages; let i = index' [attr.data-index]="i" class="alert alert-{{message.type}} alert-dismissible fade show" role="alert">
+    {{message.message}} 
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="messageService.delete(i)">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
 </div>
