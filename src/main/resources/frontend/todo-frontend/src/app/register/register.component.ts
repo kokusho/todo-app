@@ -11,28 +11,25 @@ import { User } from '../models/User';
 })
 export class RegisterComponent implements OnInit {
 
-  userService: UserService = undefined;
-  
   registerForm = new FormGroup({
       'username': new FormControl(''),
       'password': new FormControl(''),
   });
 
-  constructor( userService: UserService ) {
-    this.userService = userService;
+  constructor(public userService: UserService ) {
   }
 
   ngOnInit(): void {
   }
 
-  registerSubmit(){
+  registerSubmit( userService: UserService ){
     console.log("Submitting register form", this.registerForm.value);
     let user: User = {
       username: this.registerForm.value.username,
       password: this.registerForm.value.password,
     }
 
-    this.userService.registerUser( user );
+    userService.registerUser( user ).subscribe(val => console.log("VAL: ", val));;
   }
 
 }
