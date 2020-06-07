@@ -35,13 +35,13 @@ public class UserRealm extends AuthorizingRealm {
             throw new UnknownAccountException();
         }
         Optional<User> userOpt = userRepository.findById(token.getUsername());
-        //TODO check password too, i guess?
         //TODO [optional] hash passwords
+        //password checking is actually done implicitly by shiro
         if(userOpt.isEmpty()){
             log.warn("Tried to authenticate a user, but user was not found.");
             throw new UnknownAccountException();
         }
-        log.info("Successfully authenticated user: ", token.getUsername());
+        log.info("Found user in database: ", token.getUsername());
         return new SimpleAuthenticationInfo(token.getUsername(), userOpt.get().getPassword(), getName());
     }
 }

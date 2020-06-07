@@ -31,12 +31,13 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public User loginUser(@Valid @RequestBody User user, @RequestBody Boolean rememberMe){
+    public User loginUser(@Valid @RequestBody User user, @RequestParam(name = "rememberMe") Boolean rememberMe){
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         token.setRememberMe(rememberMe.booleanValue());
 
         currentUser.login( token );
+        //TODO add error handling
         log.info("Successfully logged in user: " + token.getUsername());
         return new User(token.getUsername(), new String(token.getPassword()));
     }
