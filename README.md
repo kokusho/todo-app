@@ -15,3 +15,7 @@ https://medium.com/@majdasab/integrating-an-angular-project-with-spring-boot-e3a
 5. Apache Shiro Abhängigkeiten hinzugefügt + shiro.ini
 6. Dafür gesorgt dass shiro user aus der db liest
 7. Einfache login und register Formulare in Angular gebaut
+8. Formulare an das Backend dran gekabelt.
+  * UserService in Angular erstellt, der die http Kommunikation übernimmt
+  * bei den onSubmit-Events der jeweiligen Formulare den userService mit der entsprechenden Methode aufgerufen
+9. MessageService in Angular eingebaut als util um Benachrichtigungen im Frontend als Bootstrap Alerts anzuzeigen
