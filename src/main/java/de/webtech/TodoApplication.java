@@ -13,7 +13,6 @@ import org.springframework.context.annotation.Bean;
 @SpringBootApplication
 public class TodoApplication {
     public static void main(String[] args) {
-
         SpringApplication.run(TodoApplication.class, args);
     }
 
@@ -32,8 +31,18 @@ public class TodoApplication {
         // logged in users with the 'document:read' permission
         chainDefinition.addPathDefinition("/docs/**", "authc, perms[document:read]");
 
+        //FIRST MATCH WINS policy
+        //chainDefinition.addPathDefinition( "/login", "anon");
+        //chainDefinition.addPathDefinition( "/register", "anon");
+
         // all other paths require a logged in user
+        //chainDefinition.addPathDefinition("/*.js", "anon");
+        //chainDefinition.addPathDefinition("/*.css", "anon");
+        //chainDefinition.addPathDefinition("/*.ico", "anon");
         //chainDefinition.addPathDefinition("/**", "authc");
+
+        chainDefinition.addPathDefinition("/dashboard**", "authc");
+        chainDefinition.addPathDefinition("/todo**", "authc");
         return chainDefinition;
     }
 
