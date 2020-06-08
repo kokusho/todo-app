@@ -3,33 +3,12 @@ package de.webtech.util;
 import java.util.Set;
 
 public class PagingResult<T> {
-    private int page;
-    private int itemsPerPage;
-    private int totalItems;
-    private Set<T> values;
 
-    public int getPage() {
-        return page;
-    }
+    private PageableImpl pagingInfo;
+    private Set<T>       values;
 
-    public void setPage(int page) {
-        this.page = page;
-    }
-
-    public int getItemsPerPage() {
-        return itemsPerPage;
-    }
-
-    public void setItemsPerPage(int itemsPerPage) {
-        this.itemsPerPage = itemsPerPage;
-    }
-
-    public int getTotalItems() {
-        return totalItems;
-    }
-
-    public void setTotalItems(int totalItems) {
-        this.totalItems = totalItems;
+    public PagingResult(PageableImpl pagingInfo) {
+        this.pagingInfo = pagingInfo;
     }
 
     public Set<T> getValues() {
@@ -38,5 +17,13 @@ public class PagingResult<T> {
 
     public void setValues(Set<T> values) {
         this.values = values;
+    }
+
+    public PageableImpl getPagingInfo() {
+        return pagingInfo;
+    }
+
+    public void setPagingInfo(PageableImpl pagingInfo) {
+        this.pagingInfo = pagingInfo;
     }
 }

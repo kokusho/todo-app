@@ -1,10 +1,13 @@
 package de.webtech.todo;
 
 import de.webtech.entities.Todo;
+import de.webtech.util.PageableImpl;
 import de.webtech.util.PagingResult;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.websocket.server.PathParam;
@@ -20,14 +23,9 @@ public class TodoRestController {
     private TodoRepository todoRepository;
 
     @GetMapping("/todos")
-    public PagingResult<Todo> getTodos(){
-        PagingResult<Todo> result = new PagingResult<>();
-        Set<Todo> todos = new HashSet<>();
-        for (Todo todo : todoRepository.findAll()) {
-            todos.add(todo);
-        }
-        result.setValues(todos);
-        return result;
+    public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize ){
+        PageableImpl pagingInfo = new PageableImpl(page, pageSize);
+        return todoRepository.findAllByAssignedUser(pagingInfo);
     }
 
     @GetMapping("/save") //TODO later change to post when wiring frontend
