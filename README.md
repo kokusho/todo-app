@@ -26,3 +26,4 @@ https://medium.com/@majdasab/integrating-an-angular-project-with-spring-boot-e3a
    * bei den onSubmit-Events der jeweiligen Formulare den userService mit der entsprechenden Methode aufgerufen
 9. MessageService in Angular eingebaut als util um Benachrichtigungen im Frontend als Bootstrap Alerts anzuzeigen
 10. RoutingController hinzugefügt um bestimmte Routen von Angular handlen zu lassen.
+11. Dashboard Komponente mit navbar implementiert, damit User sich ausloggen können
