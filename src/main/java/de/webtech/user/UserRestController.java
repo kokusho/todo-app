@@ -42,7 +42,7 @@ public class UserRestController {
         return new User(token.getUsername(), new String(token.getPassword()));
     }
 
-    @PostMapping("/logout")
+    @GetMapping("/logout")
     public boolean logoutUser(){
         Subject currentUser = SecurityUtils.getSubject();
         log.info("User logged out: " + currentUser.getPrincipal().toString());
@@ -52,11 +52,13 @@ public class UserRestController {
 
     //FIXME for debug purposes only
     @GetMapping("/whoami")
-    public String whoami(){
+    public User whoami(){
         Subject subject = SecurityUtils.getSubject();
+        User user = new User();
+        user.setUsername((String) subject.getPrincipal());
         if(subject.isAuthenticated())
-            return (String) subject.getPrincipal();
+            return user;
         else
-            return "YOU ARE NOT AUTHENTICATED!";
+            return null;
     }
 }

@@ -38,6 +38,13 @@ export class UserService {
        );
     }
 
+    doLogoutUser(): Observable<Boolean>{
+      return this.http.get<Boolean>(this.userUrl + "/logout").pipe(
+        tap( (result: Boolean) => { this.log('Successfully logged out', MessageType.Success) }),
+        catchError(this.handleError<Boolean>('logoutUser'))
+      );
+    }
+
     registerUser( u : User): Observable<User>{
       console.log("Calling backend to register a user", u);
       return this.http.post<User>(this.userUrl + "/register", u, this.httpOptions)
@@ -46,6 +53,15 @@ export class UserService {
         catchError(this.handleError<User>('registerUser'))
        );
     }
+
+    whoAmI(): Observable<User>{
+      console.log("Getting whoAmI");
+      return this.http.get(this.userUrl + "/whoami")
+        .pipe(
+          tap( (user: User) => console.log("WhoAmI", user)),
+          catchError(this.handleError<User>('whoAmI')),
+        );
+    } 
 
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {

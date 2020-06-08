@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../models/User';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -16,7 +18,7 @@ export class LoginComponent implements OnInit {
     'rememberMe': new FormControl(true),
   });
 
-  constructor(public userService: UserService) {}
+  constructor(public userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
     //TODO add Validators. to FormControl
@@ -31,7 +33,7 @@ export class LoginComponent implements OnInit {
     }
     userService.doLoginUser(user, this.loginForm.value.rememberMe).subscribe(result => {
       console.log("successfully logged in..");
-      //TODO redirect/route to dashboard 
+      this.router.navigate(["/dashboard"]);
     });
   }
 
