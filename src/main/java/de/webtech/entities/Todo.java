@@ -15,7 +15,7 @@ public class Todo {
     private String      title;
 
     @NotNull(message="A todo has to be assigned to someone.")
-    @HasValidAssignee
+    //@HasValidAssignee
     @ManyToOne
     @JoinColumn(name = "assignee_id")
     private User      assignedUser;
@@ -51,5 +51,10 @@ public class Todo {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    @Override
+    public String toString() {
+        return "[TODO] " + id + " " + title + "[assigned to: " + assignedUser.getUsername() + " done?" + done + "]";
     }
 }
