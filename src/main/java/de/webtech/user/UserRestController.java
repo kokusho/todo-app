@@ -31,7 +31,7 @@ public class UserRestController {
     }
 
     @PostMapping("/login")
-    public User loginUser(@Valid @RequestBody User user, @RequestParam(name = "rememberMe") Boolean rememberMe){
+    public User loginUser(@Valid @RequestBody User user, @RequestParam(name = "rememberMe", defaultValue = "false") Boolean rememberMe){
         Subject currentUser = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(user.getUsername(), user.getPassword());
         token.setRememberMe(rememberMe.booleanValue());
