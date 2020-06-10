@@ -1,7 +1,9 @@
 package de.webtech.todo;
 
 import de.webtech.entities.Todo;
+import de.webtech.entities.User;
 import de.webtech.util.PageableImpl;
+import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +24,7 @@ public class TodoRestController {
     @GetMapping("/todos")
     public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize ){
         PageableImpl pagingInfo = new PageableImpl(page, pageSize);
-        return todoRepository.findAllByAssignedUser(pagingInfo);
+        return todoRepository.findAllByAssignedUser(pagingInfo,  new User((String) SecurityUtils.getSubject().getPrincipal()));
     }
 
     @GetMapping("/save") //TODO later change to post when wiring frontend
