@@ -2,6 +2,7 @@ package de.webtech.todo;
 
 import de.webtech.entities.Todo;
 import de.webtech.entities.User;
+import de.webtech.exceptions.BadRequestException;
 import de.webtech.user.UserRepository;
 import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
@@ -9,11 +10,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import javax.websocket.server.PathParam;
 import java.util.HashSet;
 import java.util.Optional;
@@ -29,16 +28,35 @@ public class TodoRestController {
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/todos")
+    @GetMapping("/")
     public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize ){
-        return todoRepository.findAllByAssignedUser(PageRequest.of(page, pageSize),  new User((String) SecurityUtils.getSubject().getPrincipal()));
+        Optional<User> userOptional = userRepository.findById((String) SecurityUtils.getSubject().getPrincipal());
+        if(userOptional.isEmpty()){
+            return null; // TODO improve error handling
+        }
+        return todoRepository.findAllByAssignedUser(PageRequest.of(page, pageSize), userOptional.get());
     }
 
-    @GetMapping("/save") //TODO later change to post when wiring frontend
-    public void testSaveTodo(){
+    @PostMapping("/")
+    public Todo saveTodo(@RequestBody String todoTitle){
         Todo todo = new Todo();
-        todo.setTitle("this is a first todo");
-        this.todoRepository.save(todo);
+        todo.setTitle(todoTitle);
+        todo.setDone(false);
+        Optional<User> userOptional = userRepository.findById((String) SecurityUtils.getSubject().getPrincipal());
+        todo.setAssignedUser(userOptional.get());
+        return this.todoRepository.save(todo);
+    }
+
+    @PutMapping("/{id}")
+    public Todo updateTodo(@PathParam("id") Long todoId, @RequestBody @Valid Todo todo){
+        todo.setId( todoId );
+        return this.todoRepository.save(todo);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteTodo(@PathParam("id") Long todoId){
+        this.todoRepository.deleteById(todoId);
+        return true;
     }
 
     @GetMapping("/{id}")
@@ -65,5 +83,10 @@ public class TodoRestController {
             }
         }
         return generatedTodos;
+    }
+
+    @ExceptionHandler({BadRequestException.class})
+    public void handleBadRequestException(){
+
     }
 }

@@ -27,3 +27,12 @@
     </ul>
   </div>
 </nav>
+
+<div class="container">
+  <app-add-todo></app-add-todo>
+  <ul class="list-group">
+    <li *ngFor='let todo of todoPage.content' class="list-group-item">
+      {{todo.title}}
+    </li>
+  </ul>
+</div>
