@@ -29,11 +29,11 @@ public class Todo {
         this.done = done;
     }
 
-    public String getAssignedUser() {
+    public User getAssignedUser() {
         return assignedUser;
     }
 
-    public void setAssignedUser(String assignedUser) {
+    public void setAssignedUser(User assignedUser) {
         this.assignedUser = assignedUser;
     }
 

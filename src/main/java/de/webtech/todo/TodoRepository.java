@@ -11,5 +11,5 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface TodoRepository extends PagingAndSortingRepository<Todo, Long> {
-    Page<Todo> findAllByAssignedUser(Pageable pageable);
+    Page<Todo> findAllByAssignee_Id(Pageable pageable, String assignee_id);
 }
