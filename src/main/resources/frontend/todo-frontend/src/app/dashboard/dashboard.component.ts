@@ -35,4 +35,8 @@ export class DashboardComponent implements OnInit {
     });
   }
 
+  showTodoDetails(todoId: number){
+    this.router.navigate(["/todo/"+todoId]);
+  }
+
 }

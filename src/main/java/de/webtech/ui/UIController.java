@@ -8,7 +8,8 @@ public class UIController {
     @RequestMapping({
             "/login",
             "/register",
-            "/dashboard"
+            "/dashboard",
+            "/todo/{id}"
     })
     public String forwardToAngular(){
         return "forward:/index.html";
