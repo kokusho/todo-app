@@ -1,6 +1,7 @@
 package de.webtech.todo;
 
 import de.webtech.entities.Todo;
+import de.webtech.entities.TodoTitle;
 import de.webtech.entities.User;
 import de.webtech.exceptions.BadRequestException;
 import de.webtech.shiro.SecurityUtilsWrapper;
@@ -40,9 +41,9 @@ public class TodoRestController {
     }
 
     @PostMapping("/")
-    public Todo saveTodo(@RequestBody String todoTitle){
+    public Todo saveTodo(@RequestBody TodoTitle todoTitle){
         Todo todo = new Todo();
-        todo.setTitle(todoTitle);
+        todo.setTitle(todoTitle.getTodoTitle());
         todo.setDone(false);
         Optional<User> userOptional = userRepository.findById(securityUtilsWrapper.getPrincipal());
         todo.setAssignedUser(userOptional.get());
