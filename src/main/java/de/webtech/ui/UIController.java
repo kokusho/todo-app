@@ -9,6 +9,7 @@ public class UIController {
             "/login",
             "/register",
             "/dashboard",
+            "/todo",
             "/todo/{id}"
     })
     public String forwardToAngular(){
