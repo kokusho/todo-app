@@ -14,7 +14,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.websocket.server.PathParam;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -51,19 +50,19 @@ public class TodoRestController {
     }
 
     @PutMapping("/{id}")
-    public Todo updateTodo(@PathParam("id") Long todoId, @RequestBody @Valid Todo todo){
+    public Todo updateTodo(@PathVariable("id") Long todoId, @RequestBody @Valid Todo todo){
         todo.setId( todoId );
         return this.todoRepository.save(todo);
     }
 
     @DeleteMapping("/{id}")
-    public boolean deleteTodo(@PathParam("id") Long todoId){
+    public boolean deleteTodo(@PathVariable("id") Long todoId){
         this.todoRepository.deleteById(todoId);
         return true;
     }
 
     @GetMapping("/{id}")
-    public Todo getTodo(@PathParam("id") Long id){
+    public Todo getTodo(@PathVariable("id") Long id){
         Optional<Todo> todoOpt = this.todoRepository.findById(id);
         if(todoOpt.isPresent()){
             return todoOpt.get();
@@ -72,7 +71,7 @@ public class TodoRestController {
     }
 
     @PostMapping("/{id}")
-    public Todo reassignTodo(@PathParam("id") Long todoId, @RequestBody String newAssignee){
+    public Todo reassignTodo(@PathVariable("id") Long todoId, @RequestBody String newAssignee){
         Optional<Todo> todoOpt = todoRepository.findById(todoId);
         if(todoOpt.isEmpty()){
             //TODO add error handling
