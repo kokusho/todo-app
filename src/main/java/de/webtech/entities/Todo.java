@@ -1,7 +1,5 @@
 package de.webtech.entities;
 
-import de.webtech.util.HasValidAssignee;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 

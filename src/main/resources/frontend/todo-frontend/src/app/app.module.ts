@@ -10,6 +10,8 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessagesComponent } from './messages/messages.component';
+import { AddTodoComponent } from './add-todo/add-todo.component';
+import { TodoDetailsComponent } from './todo-details/todo-details.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +19,9 @@ import { MessagesComponent } from './messages/messages.component';
     LoginComponent,
     RegisterComponent,
     DashboardComponent,
-    MessagesComponent
+    MessagesComponent,
+    AddTodoComponent,
+    TodoDetailsComponent
   ],
   imports: [
     BrowserModule,

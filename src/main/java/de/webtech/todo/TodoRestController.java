@@ -1,20 +1,19 @@
 package de.webtech.todo;
 
 import de.webtech.entities.Todo;
+import de.webtech.entities.TodoTitle;
 import de.webtech.entities.User;
+import de.webtech.exceptions.BadRequestException;
+import de.webtech.shiro.SecurityUtilsWrapper;
 import de.webtech.user.UserRepository;
-import org.apache.shiro.SecurityUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.websocket.server.PathParam;
+import javax.validation.Valid;
 import java.util.HashSet;
 import java.util.Optional;
 import java.util.Set;
@@ -25,29 +24,65 @@ public class TodoRestController {
     private static final transient Logger log = LoggerFactory.getLogger(TodoRestController.class);
 
     @Autowired
+    SecurityUtilsWrapper securityUtilsWrapper;
+    @Autowired
     private TodoRepository todoRepository;
     @Autowired
     private UserRepository userRepository;
 
-    @GetMapping("/todos")
+    @GetMapping("/")
     public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize ){
-        return todoRepository.findAllByAssignedUser(PageRequest.of(page, pageSize),  new User((String) SecurityUtils.getSubject().getPrincipal()));
+        Optional<User> userOptional = userRepository.findById(securityUtilsWrapper.getPrincipal());
+        if(userOptional.isEmpty()){
+            return null; // TODO improve error handling
+        }
+        return todoRepository.findAllByAssignedUser(PageRequest.of(page, pageSize), userOptional.get());
     }
 
-    @GetMapping("/save") //TODO later change to post when wiring frontend
-    public void testSaveTodo(){
+    @PostMapping("/")
+    public Todo saveTodo(@RequestBody TodoTitle todoTitle){
         Todo todo = new Todo();
-        todo.setTitle("this is a first todo");
-        this.todoRepository.save(todo);
+        todo.setTitle(todoTitle.getTodoTitle());
+        todo.setDone(false);
+        Optional<User> userOptional = userRepository.findById(securityUtilsWrapper.getPrincipal());
+        todo.setAssignedUser(userOptional.get());
+        return this.todoRepository.save(todo);
+    }
+
+    @PutMapping("/{id}")
+    public Todo updateTodo(@PathVariable("id") Long todoId, @RequestBody @Valid Todo todo){
+        todo.setId( todoId );
+        return this.todoRepository.save(todo);
+    }
+
+    @DeleteMapping("/{id}")
+    public boolean deleteTodo(@PathVariable("id") Long todoId){
+        this.todoRepository.deleteById(todoId);
+        return true;
     }
 
     @GetMapping("/{id}")
-    public Todo getTodo(@PathParam("id") Long id){
+    public Todo getTodo(@PathVariable("id") Long id){
         Optional<Todo> todoOpt = this.todoRepository.findById(id);
         if(todoOpt.isPresent()){
             return todoOpt.get();
         }
         return null; //TODO might wanna throw an exception
+    }
+
+    @PostMapping("/{id}")
+    public Todo reassignTodo(@PathVariable("id") Long todoId, @RequestBody String newAssignee){
+        Optional<Todo> todoOpt = todoRepository.findById(todoId);
+        if(todoOpt.isEmpty()){
+            //TODO add error handling
+        }
+        Optional<User> newAssigneeOpt = userRepository.findById(newAssignee);
+        if(newAssigneeOpt.isEmpty()){
+            //TODO add even more error handling
+        }
+        Todo t = todoOpt.get();
+        t.setAssignedUser(newAssigneeOpt.get());
+        return todoRepository.save(t);
     }
 
     @GetMapping("/fakeData")
@@ -65,5 +100,10 @@ public class TodoRestController {
             }
         }
         return generatedTodos;
+    }
+
+    @ExceptionHandler({BadRequestException.class})
+    public void handleBadRequestException(){
+
     }
 }

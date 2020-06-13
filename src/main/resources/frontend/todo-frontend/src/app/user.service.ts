@@ -3,17 +3,26 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from './models/User';
 import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { MessageType, Message } from './models/Message';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
+  private currentUserSubject: BehaviorSubject<User>;
+  public currentUser: Observable<User>;
 
   constructor(
     private http: HttpClient,
-    private messageService: MessageService) { }
+    private messageService: MessageService) { 
+      this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
+      this.currentUser = this.currentUserSubject.asObservable();
+    }
+
+    public get currentUserValue(): User{
+      return this.currentUserSubject.value;
+    }
 
     httpOptions = {
       headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -33,14 +42,23 @@ export class UserService {
     doLoginUser(u: User, rememberMe: Boolean): Observable<User>{
       return this.http.post<User>(this.userUrl + "/login?rememberMe=" + rememberMe, u, this.httpOptions)
        .pipe(
-        tap((newUser: User) => this.log(`User logged in: ${newUser.username}`, MessageType.Success)),
+        tap((newUser: User) => {
+          this.log(`User logged in: ${newUser.username}`, MessageType.Success)
+          localStorage.setItem('currentUser', JSON.stringify(newUser));
+          this.currentUserSubject.next(newUser);
+        }),
         catchError(this.handleError<User>('loginUser'))
        );
     }
 
     doLogoutUser(): Observable<Boolean>{
       return this.http.get<Boolean>(this.userUrl + "/logout").pipe(
-        tap( (result: Boolean) => { this.log('Successfully logged out', MessageType.Success) }),
+        tap( (result: Boolean) => { 
+          this.log('Successfully logged out', MessageType.Success);
+          localStorage.removeItem('currentUser');
+          this.currentUserSubject.next(null); 
+
+        }),
         catchError(this.handleError<Boolean>('logoutUser'))
       );
     }
