@@ -4,6 +4,7 @@ import { Todo } from '../models/Todo';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserService } from '../user.service';
 import { AssigneeList } from '../models/AssigneeList';
+import { FormGroup, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-todo-details',
@@ -17,6 +18,10 @@ export class TodoDetailsComponent implements OnInit {
 
   constructor(private router: Router, private todoService: TodoService, private route: ActivatedRoute, private userService: UserService) { }
 
+  reassignForm = new FormGroup({
+    'newAssignee': new FormControl(''),
+  });
+
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.todoService.getTodoById(params.id).subscribe(todo => {
@@ -26,6 +31,11 @@ export class TodoDetailsComponent implements OnInit {
     this.userService.getPotentialAssignees().subscribe(
       assignees => this.assigneeList = assignees
     );
+  }
+
+  reassignTodo(todoId: number){
+    console.log("Reassigning todo", this.reassignForm.value);
+    this.todoService.reassignTodo(todoId, this.reassignForm.value.newAssignee);
   }
 
   markAsDone(todoId: number){

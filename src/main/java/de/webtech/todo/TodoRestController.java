@@ -70,7 +70,7 @@ public class TodoRestController {
         return null; //TODO might wanna throw an exception
     }
 
-    @PostMapping("/{id}")
+    @PostMapping("reassign/{id}")
     public Todo reassignTodo(@PathVariable("id") Long todoId, @RequestBody String newAssignee){
         Optional<Todo> todoOpt = todoRepository.findById(todoId);
         if(todoOpt.isEmpty()){

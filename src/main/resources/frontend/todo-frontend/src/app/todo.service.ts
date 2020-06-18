@@ -77,6 +77,13 @@ export class TodoService {
     );
   }
 
+  reassignTodo(todoId: number, newAssignee: string): Observable<Todo>{
+    return this.http.post(this.todoUrl + "/reassign/" + todoId, newAssignee, this.httpOptions).pipe(
+      tap( (reassignedTodo: Todo) => console.log("Todo got reassigned", reassignedTodo)),
+      catchError(this.handleError<Todo>("reassignTodo")),
+    );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
   
