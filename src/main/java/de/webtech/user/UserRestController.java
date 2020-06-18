@@ -1,6 +1,8 @@
 package de.webtech.user;
 
+import de.webtech.entities.AssigneeList;
 import de.webtech.entities.User;
+import de.webtech.shiro.SecurityUtilsWrapper;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -10,12 +12,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.HashSet;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/rest/users")
 public class UserRestController {
     private static final transient Logger log = LoggerFactory.getLogger(UserRestController.class);
 
+    @Autowired
+    SecurityUtilsWrapper securityUtilsWrapper;
     @Autowired
     UserRepository userRepository;
 
@@ -48,6 +54,16 @@ public class UserRestController {
         log.info("User logged out: " + currentUser.getPrincipal().toString());
         currentUser.logout();
         return true;
+    }
+
+    @GetMapping("/potentialAssignees")
+    public AssigneeList getPotentialAssignees(){
+        Set<String> names = new HashSet<>();
+        for (User u : userRepository.findAll()) {
+            names.add(u.getUsername());
+        }
+        names.remove(securityUtilsWrapper.getPrincipal());
+        return new AssigneeList(names);
     }
 
     //FIXME for debug purposes only

@@ -5,6 +5,7 @@ import { catchError, tap } from 'rxjs/operators';
 import { MessageService } from './message.service';
 import { Observable, of, BehaviorSubject } from 'rxjs';
 import { MessageType, Message } from './models/Message';
+import { AssigneeList } from './models/AssigneeList';
 
 @Injectable({
   providedIn: 'root'
@@ -80,6 +81,15 @@ export class UserService {
           catchError(this.handleError<User>('whoAmI')),
         );
     } 
+
+    getPotentialAssignees(): Observable<AssigneeList>{
+      console.log("Fetching potential assignees");
+      return this.http.get<AssigneeList>(this.userUrl + "/potentialAssignees")
+        .pipe(
+          tap( (assigneeList: AssigneeList) => console.log("Found following assignees", assigneeList)),
+          catchError(this.handleError<AssigneeList>('getPotentialAssignees')),
+        );
+    }
 
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {

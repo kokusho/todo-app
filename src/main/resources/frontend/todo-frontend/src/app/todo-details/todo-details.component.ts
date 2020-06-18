@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { Todo } from '../models/Todo';
 import { ActivatedRoute, Router } from '@angular/router';
+import { UserService } from '../user.service';
+import { AssigneeList } from '../models/AssigneeList';
 
 @Component({
   selector: 'app-todo-details',
@@ -10,16 +12,20 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class TodoDetailsComponent implements OnInit {
 
-  todo: Todo;
+  public todo: Todo;
+  public assigneeList: AssigneeList;
 
-  constructor(private router: Router, private todoService: TodoService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private todoService: TodoService, private route: ActivatedRoute, private userService: UserService) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
       this.todoService.getTodoById(params.id).subscribe(todo => {
         this.todo = todo;
       })
-    })
+    });
+    this.userService.getPotentialAssignees().subscribe(
+      assignees => this.assigneeList = assignees
+    );
   }
 
   markAsDone(todoId: number){

@@ -21,7 +21,6 @@ export class LoginComponent implements OnInit {
   constructor(public userService: UserService, private router: Router) {}
 
   ngOnInit(): void {
-    //TODO add Validators. to FormControl
     
   }
 
