@@ -85,6 +85,21 @@ public class TodoRestController {
         return todoRepository.save(t);
     }
 
+    @GetMapping("/markAsDone/{id}")
+    public Todo markAsDone(@PathVariable("id") Long todoId){
+        Optional<Todo> todoOptional = todoRepository.findById(todoId);
+        if(todoOptional.isEmpty()){
+            // TODO: 18.06.2020 implement error handling
+            return null;
+        }
+        Todo todo = todoOptional.get();
+        if(todo.isDone()){
+            // TODO: 18.06.2020 implement even more error handling
+        }
+        todo.setDone(true);
+        return todoRepository.save(todo);
+    }
+
     @GetMapping("/fakeData")
     public Set<Todo> fakeDataIntoDB(){
         Set<Todo> generatedTodos = new HashSet<>();

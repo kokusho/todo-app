@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TodoService } from '../todo.service';
 import { Todo } from '../models/Todo';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-todo-details',
@@ -12,7 +12,7 @@ export class TodoDetailsComponent implements OnInit {
 
   todo: Todo;
 
-  constructor(private todoService: TodoService, private route: ActivatedRoute) { }
+  constructor(private router: Router, private todoService: TodoService, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.route.params.subscribe((params) => {
@@ -32,5 +32,8 @@ export class TodoDetailsComponent implements OnInit {
 
   deleteTodo(todoId: number){
     console.log("Deleting a todo", todoId);
+    this.todoService.deleteTodo(todoId).subscribe(
+      () => this.router.navigate(["/dashboard"])
+    );
   }
 }

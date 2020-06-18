@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms';
 import { TodoService } from '../todo.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-todo',
@@ -13,7 +14,7 @@ export class AddTodoComponent implements OnInit {
     'todoTitle': new FormControl(''),
   });
 
-  constructor(private todoService: TodoService) {
+  constructor(private todoService: TodoService, private router: Router) {
   }
   
   ngOnInit(): void {
@@ -21,7 +22,10 @@ export class AddTodoComponent implements OnInit {
 
   addTodo(){
     this.todoService.saveNewTodo(this.addTodoForm.value).subscribe(
-      result => console.log("Added a todo ", result)
+      result => {
+        console.log("Added a todo ", result);
+        this.router.navigate(["/dashboard"]);
+      }
     );
   }
 

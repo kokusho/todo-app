@@ -62,6 +62,14 @@ export class TodoService {
       );
   }
 
+  deleteTodo(todoId: number): Observable<void>{
+    return this.http.post<void>(this.todoUrl+"/"+todoId,this.httpOptions)
+      .pipe(
+        tap(() => this.log(`Successfully deleted todo with id: ${todoId}`, MessageType.Success)),
+        catchError(this.handleError<void>("deleteTodo"))
+      );
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
   

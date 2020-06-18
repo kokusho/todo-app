@@ -12,6 +12,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { MessagesComponent } from './messages/messages.component';
 import { AddTodoComponent } from './add-todo/add-todo.component';
 import { TodoDetailsComponent } from './todo-details/todo-details.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { TodoDetailsComponent } from './todo-details/todo-details.component';
     DashboardComponent,
     MessagesComponent,
     AddTodoComponent,
-    TodoDetailsComponent
+    TodoDetailsComponent,
+    NavbarComponent
   ],
   imports: [
     BrowserModule,
