@@ -32,7 +32,6 @@ class TodoRestControllerTest {
     public void setup() {
         oldAssignee = userRepository.save(new User("oldAssignee", "123456789"));
         newAssignee = userRepository.save(new User("newAssignee", "123456789"));
-
     }
 
     @AfterEach
@@ -73,6 +72,17 @@ class TodoRestControllerTest {
         assertEquals(5, todosPage.getNumberOfElements());
         assertEquals(4, todosPage.getTotalPages());
         assertEquals(20, todosPage.getTotalElements());
+    }
+
+    @Test
+    public void testMarkTodoAsDone(){
+        Mockito.when(securityUtilsWrapper.getPrincipal()).thenReturn("oldAssignee");
+        Todo t = new Todo();
+        t.setAssignedUser(oldAssignee);
+        t.setTitle("MARK ME AS DONE");
+        Todo saved = todoRepository.save(t);
+        Todo doneTodo = todoRestController.markAsDone(saved.getId());
+        assertTrue(doneTodo.isDone());
     }
 
 }
