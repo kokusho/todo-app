@@ -30,6 +30,9 @@ export class TodoDetailsComponent implements OnInit {
 
   markAsDone(todoId: number){
     console.log("Marking todo as done ", todoId);
+    this.todoService.markTodoAsDone(todoId).subscribe(
+      (todo) => this.todo = todo
+    )
   }
 
   editTodo(todoId: number){
