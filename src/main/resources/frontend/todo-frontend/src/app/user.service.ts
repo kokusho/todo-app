@@ -41,8 +41,8 @@ export class UserService {
     private userUrl = "rest/users"; //URL to web api
 
     doLoginUser(u: User, rememberMe: Boolean): Observable<User>{
-      return this.http.post<User>(this.userUrl + "/login?rememberMe=" + rememberMe, u, this.httpOptions)
-       .pipe(
+      return this.http.post<User>(this.userUrl + "/login?rememberMe=" + rememberMe, u, this.httpOptions);
+       /*.pipe(
         tap((newUser: User) => {
           this.log(`User logged in: ${newUser.username}`, MessageType.Success)
           localStorage.setItem('currentUser', JSON.stringify(newUser));
@@ -50,6 +50,7 @@ export class UserService {
         }),
         catchError(this.handleError<User>('loginUser'))
        );
+       */
     }
 
     doLogoutUser(): Observable<Boolean>{
@@ -93,14 +94,7 @@ export class UserService {
 
     private handleError<T>(operation = 'operation', result?: T) {
       return (error: any): Observable<T> => {
-    
-        // TODO: send the error to remote logging infrastructure
-        console.error(error); // log to console instead
-    
-        // TODO: better job of transforming error for user consumption
-        this.log(`${operation} failed: ${error.message}`, MessageType.Danger);
-    
-        // Let the app keep running by returning an empty result.
+        console.error(error); 
         return of(result as T);
       };
     }

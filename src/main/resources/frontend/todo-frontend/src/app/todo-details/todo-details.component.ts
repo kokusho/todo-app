@@ -37,7 +37,7 @@ export class TodoDetailsComponent implements OnInit {
     console.log("Reassigning todo", this.reassignForm.value);
     this.todoService.reassignTodo(todoId, this.reassignForm.value.newAssignee).subscribe(
       (reassignedTodo) => {
-        console.log("The todo has been reassigned", reassignedTodo)
+        console.log("The todo has been reassigned", reassignedTodo);
         this.router.navigate(["/dashboard"])
       }
     );
