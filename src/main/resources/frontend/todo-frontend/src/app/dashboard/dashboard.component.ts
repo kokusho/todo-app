@@ -26,4 +26,11 @@ export class DashboardComponent implements OnInit {
     this.router.navigate(["/todo/"+todoId]);
   }
 
+  onAddedTodo(added: boolean): void{
+    console.log("Invoking onAddedTodo");
+    if(added === true){
+      this.ngOnInit();
+    }
+  }
+
 }
