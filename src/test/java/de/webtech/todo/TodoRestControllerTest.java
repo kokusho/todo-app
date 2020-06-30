@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.data.domain.Page;
+import org.springframework.http.ResponseEntity;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -53,7 +54,9 @@ class TodoRestControllerTest {
         oldTodo.setTitle("CHECK FOR REASSIGN TODO");
         oldTodo = todoRepository.save(oldTodo);
 
-        Todo reassignedTodo = todoRestController.reassignTodo(oldTodo.getId(), "newAssignee");
+        ResponseEntity<Object> response = todoRestController.reassignTodo(oldTodo.getId(), "newAssignee");
+        assertTrue(response.getBody() instanceof Todo);
+        Todo reassignedTodo = (Todo) response.getBody();
         assertEquals(oldTodo.getId(), reassignedTodo.getId());
         assertEquals("newAssignee", reassignedTodo.getAssignedUser().getUsername());
     }
@@ -81,7 +84,9 @@ class TodoRestControllerTest {
         t.setAssignedUser(oldAssignee);
         t.setTitle("MARK ME AS DONE");
         Todo saved = todoRepository.save(t);
-        Todo doneTodo = todoRestController.markAsDone(saved.getId());
+        ResponseEntity<Object> responseEntity = todoRestController.markAsDone(saved.getId());
+        assertTrue(responseEntity.getBody() instanceof Todo);
+        Todo doneTodo = (Todo) responseEntity.getBody();
         assertTrue(doneTodo.isDone());
     }
 
