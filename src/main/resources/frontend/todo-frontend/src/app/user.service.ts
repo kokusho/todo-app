@@ -41,16 +41,10 @@ export class UserService {
     private userUrl = "rest/users"; //URL to web api
 
     doLoginUser(u: User, rememberMe: Boolean): Observable<User>{
-      return this.http.post<User>(this.userUrl + "/login?rememberMe=" + rememberMe, u, this.httpOptions);
-       /*.pipe(
-        tap((newUser: User) => {
-          this.log(`User logged in: ${newUser.username}`, MessageType.Success)
-          localStorage.setItem('currentUser', JSON.stringify(newUser));
-          this.currentUserSubject.next(newUser);
-        }),
-        catchError(this.handleError<User>('loginUser'))
+      return this.http.post<User>(this.userUrl + "/login?rememberMe=" + rememberMe, u, this.httpOptions)
+       .pipe(
+        tap((newUser: User) => { this.currentUserSubject.next(newUser); })
        );
-       */
     }
 
     doLogoutUser(): Observable<any>{

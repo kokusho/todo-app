@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
     userService.doLoginUser(user, this.loginForm.value.rememberMe).subscribe(
       result => {
         this.messageService.log("User successfully logged in", MessageType.Success);
+        localStorage.setItem('currentUser', JSON.stringify(result));
         this.router.navigate(["/dashboard"]);
       },
       error => {
