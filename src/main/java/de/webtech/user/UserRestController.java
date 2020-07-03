@@ -4,6 +4,7 @@ import de.webtech.entities.AssigneeList;
 import de.webtech.entities.User;
 import de.webtech.shiro.SecurityUtilsWrapper;
 import de.webtech.util.ResponseMessage;
+import org.apache.coyote.Response;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.subject.Subject;
@@ -76,7 +77,7 @@ public class UserRestController {
         Subject currentUser = securityUtilsWrapper.getSubject();
         log.info("User logged out: " + currentUser.getPrincipal().toString());
         currentUser.logout();
-        return new ResponseEntity<>("User logged out!", HttpStatus.OK);
+        return new ResponseEntity<>(new ResponseMessage("User logged out!"), HttpStatus.OK);
     }
 
     @GetMapping("/potentialAssignees")

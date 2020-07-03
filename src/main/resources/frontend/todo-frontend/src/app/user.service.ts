@@ -53,15 +53,14 @@ export class UserService {
        */
     }
 
-    doLogoutUser(): Observable<Boolean>{
-      return this.http.get<Boolean>(this.userUrl + "/logout").pipe(
+    doLogoutUser(): Observable<any>{
+      return this.http.get(this.userUrl + "/logout").pipe(
         tap( (result: Boolean) => { 
           this.log('Successfully logged out', MessageType.Success);
           localStorage.removeItem('currentUser');
           this.currentUserSubject.next(null); 
-
         }),
-        catchError(this.handleError<Boolean>('logoutUser'))
+        catchError(this.handleError<any>('logoutUser'))
       );
     }
 
@@ -85,11 +84,7 @@ export class UserService {
 
     getPotentialAssignees(): Observable<AssigneeList>{
       console.log("Fetching potential assignees");
-      return this.http.get<AssigneeList>(this.userUrl + "/potentialAssignees")
-        .pipe(
-          tap( (assigneeList: AssigneeList) => console.log("Found following assignees", assigneeList)),
-          catchError(this.handleError<AssigneeList>('getPotentialAssignees')),
-        );
+      return this.http.get<AssigneeList>(this.userUrl + "/potentialAssignees");
     }
 
     private handleError<T>(operation = 'operation', result?: T) {

@@ -16,14 +16,16 @@ export class NavbarComponent implements OnInit {
   ngOnInit(): void {
     this.userService.whoAmI().subscribe(user => {
       this.username = user.username;
-    })
+    }),
+    error => {
+      console.log("who am i returned an error redirecting to login page");
+      this.router.navigate(["/login"]);
+    }
   }
 
   logoutUser(): void{
     this.userService.doLogoutUser().subscribe(result => {
-      if(result === true){
-        this.router.navigate(["/login"]);
-      }
+      this.router.navigate(["/login"]);
     });
   }
 

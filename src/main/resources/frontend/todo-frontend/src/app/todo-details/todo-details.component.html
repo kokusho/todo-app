@@ -1,4 +1,4 @@
-<div class="container">
+<div *ngIf="todo" class="container">
     <div class="jumbotron">
         <h2>{{todo.title}}</h2>
         <p *ngIf="todo.done">
@@ -44,7 +44,7 @@
                             <div class="input-group-prepend">
                                 <label class="input-group-text" for="assigneeSelect">@</label>
                             </div>
-                            <select class="custom-select" id="assigneeSelect" formControlName="newAssignee">
+                            <select *ngIf="assigneeList" class="custom-select" id="assigneeSelect" formControlName="newAssignee">
                                 <option *ngFor='let assignee of assigneeList.names' value="{{assignee}}">{{assignee}}</option>
                             </select>
                         </div>
