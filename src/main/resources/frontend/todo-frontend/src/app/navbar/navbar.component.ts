@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, Output,EventEmitter} from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
@@ -8,12 +8,15 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-
+  @Output() delete = new EventEmitter<boolean>();
   username: string;
+  checker : boolean;
+
 
   constructor(private router: Router, private userService: UserService,) { }
 
   ngOnInit(): void {
+    this.checker = true;
     this.userService.whoAmI().subscribe(user => {
       this.username = user.username;
     }),
@@ -24,7 +27,10 @@ export class NavbarComponent implements OnInit {
   }
 
   logoutUser(): void{
-    this.userService.doLogoutUser().subscribe(result => {
+    this.userService .doLogoutUser().subscribe(result => {
+      this.checker = false;
+      this.delete.emit(this.checker);
+
       this.router.navigate(["/login"]);
     });
   }
