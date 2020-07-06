@@ -1,4 +1,4 @@
-import {Component, OnInit, Output,EventEmitter} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 
@@ -8,31 +8,20 @@ import { Router } from '@angular/router';
   styleUrls: ['./navbar.component.css']
 })
 export class NavbarComponent implements OnInit {
-  @Output() delete = new EventEmitter<boolean>();
   username: string;
-  checker : boolean;
-
 
   constructor(private router: Router, private userService: UserService,) { }
 
   ngOnInit(): void {
-    this.checker = true;
-    this.userService.whoAmI().subscribe(user => {
-      this.username = user.username;
-    }),
-    error => {
-      console.log("who am i returned an error redirecting to login page");
-      this.router.navigate(["/login"]);
-    }
+    this.userService.currentUser.subscribe(
+      user => this.username = user != undefined ? user.username : undefined
+    );
   }
 
-  logoutUser(): void{
-    this.userService .doLogoutUser().subscribe(result => {
-      this.checker = false;
-      this.delete.emit(this.checker);
-
+  logoutUser(): void {
+    this.userService.doLogoutUser().subscribe(result => {
+      //this.username = undefined;
       this.router.navigate(["/login"]);
     });
   }
-
 }
