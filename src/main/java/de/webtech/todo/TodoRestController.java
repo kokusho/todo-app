@@ -32,6 +32,10 @@ public class TodoRestController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/reset")
+    public void Reset(){
+        todoRepository.deleteAll();
+    }
     @GetMapping("/")
     public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize) {
         Optional<User> userOptional = userRepository.findById(securityUtilsWrapper.getPrincipal());

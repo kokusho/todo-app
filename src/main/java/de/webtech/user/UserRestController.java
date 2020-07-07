@@ -4,9 +4,9 @@ import de.webtech.entities.AssigneeList;
 import de.webtech.entities.User;
 import de.webtech.shiro.SecurityUtilsWrapper;
 import de.webtech.util.ResponseMessage;
-import org.apache.coyote.Response;
 import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.*;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,6 +36,10 @@ public class UserRestController {
     @Autowired
     Validator validator;
 
+    @GetMapping("/reset")
+    public void reset(){
+        userRepository.deleteAll();
+    }
     @PostMapping("/register")
     public ResponseEntity<Object> registerUser(@RequestBody User user){
         Optional<User> userByIdOpt = userRepository.findById(user.getUsername());
