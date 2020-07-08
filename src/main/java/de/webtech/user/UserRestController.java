@@ -37,8 +37,9 @@ public class UserRestController {
     Validator validator;
 
     @GetMapping("/reset")
-    public void reset(){
+    public ResponseEntity<Object> reset(){
         userRepository.deleteAll();
+        return new ResponseEntity(HttpStatus.OK);
     }
     @PostMapping("/register")
     public ResponseEntity<Object> registerUser(@RequestBody User user){
