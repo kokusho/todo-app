@@ -155,6 +155,54 @@
           "description": "",
           "expectedResult": "",
           "hidden": false,
+          "inputs": [],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "LoginAsAdmin",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "symbol",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "pSymbol": {
+                "parameterValues": [
+                  {
+                    "parameter": {
+                      "type": "input",
+                      "name": "Login",
+                      "parameterType": "STRING"
+                    },
+                    "value": "admin"
+                  },
+                  {
+                    "parameter": {
+                      "type": "input",
+                      "name": "Passwort",
+                      "parameterType": "STRING"
+                    },
+                    "value": "adminadmin"
+                  }
+                ],
+                "symbol": {
+                  "name": "login user"
+                }
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-09T16:29:08.906+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
           "inputs": [
             {
               "type": "input",
@@ -408,6 +456,36 @@
               }
             },
             {
+              "type": "symbol",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "pSymbol": {
+                "parameterValues": [
+                  {
+                    "parameter": {
+                      "type": "input",
+                      "name": "Login",
+                      "parameterType": "STRING"
+                    },
+                    "value": "admin"
+                  },
+                  {
+                    "parameter": {
+                      "type": "input",
+                      "name": "Passwort",
+                      "parameterType": "STRING"
+                    },
+                    "value": "adminadmin"
+                  }
+                ],
+                "symbol": {
+                  "name": "create user1 "
+                }
+              }
+            },
+            {
               "type": "action",
               "disabled": false,
               "ignoreFailure": false,
@@ -442,7 +520,7 @@
             }
           ],
           "successOutput": null,
-          "updatedOn": "2020-07-07T14:28:29.542+02:00"
+          "updatedOn": "2020-07-09T16:26:15.809+02:00"
         },
         {
           "description": "",
@@ -912,6 +990,223 @@
   ],
   "tests": [
     {
+      "name": "uaie",
+      "preSteps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        }
+      ],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "xlvcxv"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "xvwxvlcxkkxw"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "xlvcxv"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "xvwxvlcxkkxw"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaeui"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiouioa"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouiaisiss"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiouioa"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouiaisiss"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "ussssaeusea"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "ussssaeusea"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "User",
+                  "parameterType": "STRING"
+                },
+                "value": "xlvcxv"
+              }
+            ],
+            "symbol": {
+              "name": "reasign Todo"
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-09T12:52:56.295+02:00",
+      "type": "case"
+    },
+    {
       "name": "rr",
       "tests": [],
       "type": "suite"
@@ -1243,223 +1538,6 @@
       "type": "case"
     },
     {
-      "name": "uaie",
-      "preSteps": [
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [],
-            "symbol": {
-              "name": "reset user and todos"
-            }
-          }
-        }
-      ],
-      "steps": [
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Login",
-                  "parameterType": "STRING"
-                },
-                "value": "xlvcxv"
-              },
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Passwort",
-                  "parameterType": "STRING"
-                },
-                "value": "xvwxvlcxkkxw"
-              }
-            ],
-            "symbol": {
-              "name": "create user1 "
-            }
-          }
-        },
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Login",
-                  "parameterType": "STRING"
-                },
-                "value": "xlvcxv"
-              },
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Passwort",
-                  "parameterType": "STRING"
-                },
-                "value": "xvwxvlcxkkxw"
-              }
-            ],
-            "symbol": {
-              "name": "login user"
-            }
-          }
-        },
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Todo",
-                  "parameterType": "STRING"
-                },
-                "value": "uiaeui"
-              }
-            ],
-            "symbol": {
-              "name": "AddTodo"
-            }
-          }
-        },
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Login",
-                  "parameterType": "STRING"
-                },
-                "value": "uaiouioa"
-              },
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Passwort",
-                  "parameterType": "STRING"
-                },
-                "value": "uiaouiaisiss"
-              }
-            ],
-            "symbol": {
-              "name": "create user1 "
-            }
-          }
-        },
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Login",
-                  "parameterType": "STRING"
-                },
-                "value": "uaiouioa"
-              },
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Passwort",
-                  "parameterType": "STRING"
-                },
-                "value": "uiaouiaisiss"
-              }
-            ],
-            "symbol": {
-              "name": "login user"
-            }
-          }
-        },
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Todo",
-                  "parameterType": "STRING"
-                },
-                "value": "ussssaeusea"
-              }
-            ],
-            "symbol": {
-              "name": "AddTodo"
-            }
-          }
-        },
-        {
-          "disabled": false,
-          "expectedResult": "",
-          "expectedOutputSuccess": true,
-          "expectedOutputMessage": "",
-          "pSymbol": {
-            "parameterValues": [
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "Todo",
-                  "parameterType": "STRING"
-                },
-                "value": "ussssaeusea"
-              },
-              {
-                "parameter": {
-                  "type": "input",
-                  "name": "User",
-                  "parameterType": "STRING"
-                },
-                "value": "xlvcxv"
-              }
-            ],
-            "symbol": {
-              "name": "reasign Todo"
-            }
-          }
-        }
-      ],
-      "postSteps": [],
-      "generated": false,
-      "lastUpdatedBy": {
-        "id": 1,
-        "username": "admin",
-        "email": "admin@alex.example",
-        "role": "ADMIN"
-      },
-      "status": "DONE",
-      "updatedOn": "2020-07-09T12:52:56.295+02:00",
-      "type": "case"
-    },
-    {
       "name": "Done Todo",
       "preSteps": [
         {
@@ -1587,6 +1665,169 @@
       },
       "status": "DONE",
       "updatedOn": "2020-07-09T13:02:53.624+02:00",
+      "type": "case"
+    },
+    {
+      "name": "Admin delete",
+      "preSteps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        }
+      ],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaeuai"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouaiuaioouoa"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaeuai"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouaiuaioouoa"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uaioauiouio"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uaeuai"
+              }
+            ],
+            "symbol": {
+              "name": "Logout"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "LoginAsAdmin"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uaioauiouio"
+              }
+            ],
+            "symbol": {
+              "name": "Delete Todo"
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-09T18:43:24.084+02:00",
       "type": "case"
     }
   ]
