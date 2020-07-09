@@ -1,10 +1,10 @@
 package de.webtech.user;
 
 import de.webtech.entities.AssigneeList;
+import de.webtech.entities.Role;
 import de.webtech.entities.User;
 import de.webtech.shiro.SecurityUtilsWrapper;
 import de.webtech.util.ResponseMessage;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.subject.Subject;
@@ -50,6 +50,9 @@ public class UserRestController {
         Set<ConstraintViolation<@Valid User>> violations = validator.validate(user);
         if( !violations.isEmpty() ){
             return new ResponseEntity(new ResponseMessage(violations.stream().map(ConstraintViolation::getMessage).collect(Collectors.toSet())), HttpStatus.BAD_REQUEST);
+        }
+        if(userRepository.findByRoles(Role.ADMIN).isEmpty()){
+            user.setRoles(Collections.singleton(Role.ADMIN));
         }
         userRepository.save(user);
         log.info("Successfully registered a new user: " + user.getUsername());
