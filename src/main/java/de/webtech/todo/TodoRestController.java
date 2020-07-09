@@ -32,6 +32,11 @@ public class TodoRestController {
     @Autowired
     private UserRepository userRepository;
 
+    @GetMapping("/reset")
+    public ResponseEntity<Object>  Reset(){
+        todoRepository.deleteAll();
+        return new ResponseEntity(HttpStatus.OK);
+    }
     @GetMapping("/")
     public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize) {
         if(securityUtilsWrapper.getSubject().hasRole("ADMIN")){
