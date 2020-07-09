@@ -34,6 +34,9 @@ public class TodoRestController {
 
     @GetMapping("/")
     public Page<Todo> getTodos(@RequestParam(name = "p", defaultValue = "0") int page, @RequestParam(name = "i", defaultValue = "20") int pageSize) {
+        if(securityUtilsWrapper.getSubject().hasRole("ADMIN")){
+            return todoRepository.findAll(PageRequest.of(page, pageSize));
+        }
         Optional<User> userOptional = userRepository.findById(securityUtilsWrapper.getPrincipal());
         if (userOptional.isEmpty()) {
             return null; // TODO improve error handling
@@ -57,7 +60,7 @@ public class TodoRestController {
         if(byIdOpt.isEmpty()){
             return new ResponseEntity<>(new ResponseMessage("Todo to update with id "+ todoId + " was not found!"), HttpStatus.NOT_FOUND);
         }
-        if(!securityUtilsWrapper.getPrincipal().equals(byIdOpt.get().getAssignedUser().getUsername())){
+        if(!securityUtilsWrapper.getPrincipal().equals(byIdOpt.get().getAssignedUser().getUsername()) && !securityUtilsWrapper.getSubject().hasRole("ADMIN")){
             return new ResponseEntity<>(new ResponseMessage("You may not update this todo!"), HttpStatus.FORBIDDEN);
         }
         todo.setId(todoId);
@@ -69,7 +72,7 @@ public class TodoRestController {
         Optional<Todo> todoToDeleteOpt = this.todoRepository.findById(todoId);
         if(todoToDeleteOpt.isEmpty()){
             return new ResponseEntity<>(new ResponseMessage("Todo with id " + todoId + " was not found!"), HttpStatus.NOT_FOUND);
-        } else if(!todoToDeleteOpt.get().getAssignedUser().getUsername().equals(securityUtilsWrapper.getPrincipal())){
+        } else if(!todoToDeleteOpt.get().getAssignedUser().getUsername().equals(securityUtilsWrapper.getPrincipal())  && !securityUtilsWrapper.getSubject().hasRole("ADMIN")){
             return new ResponseEntity<>(new ResponseMessage(securityUtilsWrapper.getPrincipal() + " is not authorized to delete this todo!"), HttpStatus.FORBIDDEN);
         }
         this.todoRepository.deleteById(todoId);
@@ -82,6 +85,9 @@ public class TodoRestController {
         if(todoOpt.isEmpty()){
             return new ResponseEntity<>(new ResponseMessage("Todo with id " + id + " was not found!"), HttpStatus.NOT_FOUND);
         }
+        if(!todoOpt.get().getAssignedUser().getUsername().equals(securityUtilsWrapper.getPrincipal())  && !securityUtilsWrapper.getSubject().hasRole("ADMIN")){
+            return new ResponseEntity<>(new ResponseMessage("Not authorized to see this todo!"), HttpStatus.FORBIDDEN);
+        }
         return new ResponseEntity<>(todoOpt.get(), HttpStatus.OK);
     }
 
@@ -90,6 +96,9 @@ public class TodoRestController {
         Optional<Todo> todoOpt = todoRepository.findById(todoId);
         if (todoOpt.isEmpty()) {
             return new ResponseEntity<>(new ResponseMessage("Todo with id " + todoId + " was not found!"), HttpStatus.NOT_FOUND);
+        }
+        if(!todoOpt.get().getAssignedUser().getUsername().equals(securityUtilsWrapper.getPrincipal())  && !securityUtilsWrapper.getSubject().hasRole("ADMIN")){
+            return new ResponseEntity<>(new ResponseMessage("Not authorized to reassign this todo!"), HttpStatus.FORBIDDEN);
         }
         Optional<User> newAssigneeOpt = userRepository.findById(newAssignee);
         if (newAssigneeOpt.isEmpty()) {
@@ -105,6 +114,9 @@ public class TodoRestController {
         Optional<Todo> todoOptional = todoRepository.findById(todoId);
         if (todoOptional.isEmpty()) {
             return new ResponseEntity<>(new ResponseMessage("Todo with id " + todoId + " was not found!"), HttpStatus.NOT_FOUND);
+        }
+        if(!todoOptional.get().getAssignedUser().getUsername().equals(securityUtilsWrapper.getPrincipal())  && !securityUtilsWrapper.getSubject().hasRole("ADMIN")){
+            return new ResponseEntity<>(new ResponseMessage("Not authorized mark todo as done!"), HttpStatus.FORBIDDEN);
         }
         Todo todo = todoOptional.get();
         if (todo.isDone()) {
