@@ -1,0 +1,1593 @@
+{
+  "version": "2.0.0",
+  "type": "project",
+  "project": {
+    "name": "Todo-App",
+    "description": "Todo-App",
+    "environments": [
+      {
+        "name": "Production",
+        "urls": [
+          {
+            "name": "Base",
+            "url": "http://localhost:8080",
+            "default": true
+          }
+        ],
+        "variables": [],
+        "default": true
+      }
+    ],
+    "members": [],
+    "owners": [
+      1
+    ]
+  },
+  "groups": [
+    {
+      "name": "Default group",
+      "symbols": [
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Login",
+              "parameterType": "STRING"
+            },
+            {
+              "type": "input",
+              "name": "Passwort",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "login user",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_goto",
+                "url": "/login",
+                "baseUrl": "Base",
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_fill",
+                "node": {
+                  "selector": "#usernameInput",
+                  "type": "CSS"
+                },
+                "value": "{{$Login}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_fill",
+                "node": {
+                  "selector": "#passwordInput",
+                  "type": "CSS"
+                },
+                "value": "{{$Passwort}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_clickElementByText",
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "tagName": "button",
+                "text": "Login"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "{{$Login}}",
+                "regexp": false,
+                "node": {
+                  "selector": ".#navbarDropdownMenuLink",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForNode",
+                "node": {
+                  "selector": ".form-control[placeholder=\"New Todo\"]",
+                  "type": "CSS"
+                },
+                "waitCriterion": "CLICKABLE",
+                "maxWaitTime": 10
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-07T16:02:27.813+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Login",
+              "parameterType": "STRING"
+            },
+            {
+              "type": "input",
+              "name": "Passwort",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "create user1 ",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_goto",
+                "url": "/register",
+                "baseUrl": "Base",
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_fill",
+                "node": {
+                  "selector": "#usernameInput",
+                  "type": "CSS"
+                },
+                "value": "{{$Login}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_fill",
+                "node": {
+                  "selector": "input[id=\"passwordInput\"]",
+                  "type": "CSS"
+                },
+                "value": "{{$Passwort}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_clickElementByText",
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "tagName": "button",
+                "text": "Register"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "UserService: Successfully registered a new user:",
+                "regexp": false,
+                "node": {
+                  "selector": ".alert",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-07T14:32:15.105+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Todo",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "DoneTodo",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_clickElementByText",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul",
+                  "type": "XPATH"
+                },
+                "tagName": "li",
+                "text": "{{$Todo}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_click",
+                "node": {
+                  "selector": "/html/body/app-root/app-todo-details/div/div/div[1]/button[1]",
+                  "type": "XPATH"
+                },
+                "doubleClick": false
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "Todo is already done! Great job!",
+                "regexp": false,
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-09T13:00:01.140+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "reset user and todos",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "rest_call",
+                "method": "GET",
+                "url": "/rest/todos/reset",
+                "baseUrl": "Base",
+                "timeout": 0,
+                "headers": {},
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                },
+                "cookies": {}
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "rest_checkStatus",
+                "status": 200
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "rest_call",
+                "method": "GET",
+                "url": "/rest/users/reset",
+                "baseUrl": "Base",
+                "timeout": 0,
+                "headers": {},
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                },
+                "cookies": {}
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "rest_checkStatus",
+                "status": 200
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_goto",
+                "url": "/",
+                "baseUrl": "Base",
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "TodoApp",
+                "regexp": false,
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-07T14:28:29.542+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Todo",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "AddTodo",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_goto",
+                "url": "/dashboard",
+                "baseUrl": "Base",
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForNode",
+                "node": {
+                  "selector": ".form-control[placeholder=\"New Todo\"]",
+                  "type": "CSS"
+                },
+                "waitCriterion": "CLICKABLE",
+                "maxWaitTime": 10
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_fill",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/app-add-todo/form/div/input",
+                  "type": "XPATH"
+                },
+                "value": "{{$Todo}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_pressKey",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/app-add-todo/form/div/input",
+                  "type": "XPATH"
+                },
+                "key": "\\ue007"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_submit",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/app-add-todo/form/div/input",
+                  "type": "XPATH"
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "UserService: Successfully saved a new todo:",
+                "regexp": false,
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            },
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForNode",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul/li[1]",
+                  "type": "XPATH"
+                },
+                "waitCriterion": "VISIBLE",
+                "maxWaitTime": 10
+              }
+            },
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_checkForText",
+                "value": "{{$Todo}}",
+                "regexp": false,
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul/li[1]",
+                  "type": "XPATH"
+                }
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-09T12:52:46.148+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Todo",
+              "parameterType": "STRING"
+            },
+            {
+              "type": "input",
+              "name": "User",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "reasign Todo",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_goto",
+                "url": "/dashboard",
+                "baseUrl": "Base",
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForNode",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul/li[1]",
+                  "type": "XPATH"
+                },
+                "waitCriterion": "VISIBLE",
+                "maxWaitTime": 10
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_click",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul/li[1]",
+                  "type": "XPATH"
+                },
+                "doubleClick": false
+              }
+            },
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_clickElementByText",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul/li[1]",
+                  "type": "XPATH"
+                },
+                "tagName": "",
+                "text": "{{$Todo}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_click",
+                "node": {
+                  "selector": "button.btn:nth-child(3)",
+                  "type": "CSS"
+                },
+                "doubleClick": false
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_select",
+                "node": {
+                  "selector": "#assigneeSelect",
+                  "type": "CSS"
+                },
+                "value": "{{$User}}",
+                "selectBy": "TEXT"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_goto",
+                "url": "/dashboard",
+                "baseUrl": "Base",
+                "credentials": {
+                  "name": "",
+                  "password": ""
+                }
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-07T23:19:51.454+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Todo",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "Delete Todo",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_clickLinkByText",
+                "value": "{{$Todo}}",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul",
+                  "type": "XPATH"
+                }
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_clickElementByText",
+                "node": {
+                  "selector": "/html/body/app-root/app-dashboard/div/ul",
+                  "type": "XPATH"
+                },
+                "tagName": "li",
+                "text": "{{$Todo}}"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_click",
+                "node": {
+                  "selector": "/html/body/app-root/app-todo-details/div/div/div[1]/button[2]",
+                  "type": "XPATH"
+                },
+                "doubleClick": false
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "UserService: Successfully deleted todo",
+                "regexp": false,
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-09T12:47:35.737+02:00"
+        },
+        {
+          "description": "",
+          "expectedResult": "",
+          "hidden": false,
+          "inputs": [
+            {
+              "type": "input",
+              "name": "Todo",
+              "parameterType": "STRING"
+            }
+          ],
+          "lastUpdatedBy": {
+            "id": 1,
+            "username": "admin",
+            "email": "admin@alex.example",
+            "role": "ADMIN"
+          },
+          "name": "Logout",
+          "outputs": [],
+          "steps": [
+            {
+              "type": "action",
+              "disabled": true,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_select",
+                "node": {
+                  "selector": "#navbarDropdownMenuLink",
+                  "type": "CSS"
+                },
+                "value": "{{$Todo}}",
+                "selectBy": "TEXT"
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_click",
+                "node": {
+                  "selector": "#navbarDropdownMenuLink",
+                  "type": "CSS"
+                },
+                "doubleClick": false
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_click",
+                "node": {
+                  "selector": "/html/body/app-root/app-navbar/nav/div/ul/li[2]/div/a",
+                  "type": "XPATH"
+                },
+                "doubleClick": false
+              }
+            },
+            {
+              "type": "action",
+              "disabled": false,
+              "ignoreFailure": false,
+              "negated": false,
+              "errorOutput": null,
+              "action": {
+                "type": "web_waitForText",
+                "value": "UserService: Successfully logged out",
+                "regexp": false,
+                "node": {
+                  "selector": "body",
+                  "type": "CSS"
+                },
+                "maxWaitTime": 10
+              }
+            }
+          ],
+          "successOutput": null,
+          "updatedOn": "2020-07-07T23:53:31.922+02:00"
+        }
+      ],
+      "groups": []
+    }
+  ],
+  "tests": [
+    {
+      "name": "rr",
+      "tests": [],
+      "type": "suite"
+    },
+    {
+      "name": "Add and reasingn - 1",
+      "preSteps": [],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uouououo"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiuiaoiaouiao"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uouououo"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiuiaoiaouiao"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-07T22:03:24.679+02:00",
+      "type": "case"
+    },
+    {
+      "name": "Logout",
+      "preSteps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        }
+      ],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "vlcwvlwvl"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "kvlhkcwvlkvgvg"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "vlcwvlwvl"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "kvlhkcwvlkvgvg"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "vlcwvlwvl"
+              }
+            ],
+            "symbol": {
+              "name": "Logout"
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-08T08:52:12.250+02:00",
+      "type": "case"
+    },
+    {
+      "name": "Delete",
+      "preSteps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        }
+      ],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "aeuiaeaie"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uoaiouiaouioioa"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "aeuiaeaie"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uoaiouiaouioioa"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaeuiae"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaeuiae"
+              }
+            ],
+            "symbol": {
+              "name": "Delete Todo"
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-09T12:47:42.238+02:00",
+      "type": "case"
+    },
+    {
+      "name": "uaie",
+      "preSteps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        }
+      ],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "xlvcxv"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "xvwxvlcxkkxw"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "xlvcxv"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "xvwxvlcxkkxw"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaeui"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiouioa"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouiaisiss"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiouioa"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouiaisiss"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "ussssaeusea"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "ussssaeusea"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "User",
+                  "parameterType": "STRING"
+                },
+                "value": "xlvcxv"
+              }
+            ],
+            "symbol": {
+              "name": "reasign Todo"
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-09T12:52:56.295+02:00",
+      "type": "case"
+    },
+    {
+      "name": "Done Todo",
+      "preSteps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [],
+            "symbol": {
+              "name": "reset user and todos"
+            }
+          }
+        }
+      ],
+      "steps": [
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaioo"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouaisisss"
+              }
+            ],
+            "symbol": {
+              "name": "create user1 "
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Login",
+                  "parameterType": "STRING"
+                },
+                "value": "uaioo"
+              },
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Passwort",
+                  "parameterType": "STRING"
+                },
+                "value": "uiaouaisisss"
+              }
+            ],
+            "symbol": {
+              "name": "login user"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiouaio"
+              }
+            ],
+            "symbol": {
+              "name": "AddTodo"
+            }
+          }
+        },
+        {
+          "disabled": false,
+          "expectedResult": "",
+          "expectedOutputSuccess": true,
+          "expectedOutputMessage": "",
+          "pSymbol": {
+            "parameterValues": [
+              {
+                "parameter": {
+                  "type": "input",
+                  "name": "Todo",
+                  "parameterType": "STRING"
+                },
+                "value": "uaiouaio"
+              }
+            ],
+            "symbol": {
+              "name": "DoneTodo"
+            }
+          }
+        }
+      ],
+      "postSteps": [],
+      "generated": false,
+      "lastUpdatedBy": {
+        "id": 1,
+        "username": "admin",
+        "email": "admin@alex.example",
+        "role": "ADMIN"
+      },
+      "status": "DONE",
+      "updatedOn": "2020-07-09T13:02:53.624+02:00",
+      "type": "case"
+    }
+  ]
+}
