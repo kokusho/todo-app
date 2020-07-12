@@ -1,7 +1,7 @@
 <div class="container">
   <app-add-todo (addedTodo)="onAddedTodo($event)"></app-add-todo>
   <ul *ngIf="todoPage" class="list-group">
-    <li *ngFor='let todo of todoPage.content' class="list-group-item" (click)="showTodoDetails(todo.id)" style="cursor: pointer">
+    <li *ngFor='let todo of todoPage.content' class="list-group-item" (click)="showTodoDetails(todo.id)" style="cursor: pointer" [ngClass]="{'list-group-item-success' : todo.done}">
       {{todo.title}}
     </li>
   </ul>
