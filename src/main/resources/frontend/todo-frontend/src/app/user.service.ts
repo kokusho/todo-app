@@ -60,11 +60,7 @@ export class UserService {
 
     registerUser( u : User): Observable<User>{
       console.log("Calling backend to register a user", u);
-      return this.http.post<User>(this.userUrl + "/register", u, this.httpOptions)
-       .pipe(
-        tap((newUser: User) => this.log(`Successfully registered a new user: ${newUser.username}`, MessageType.Success)),
-        catchError(this.handleError<User>('registerUser'))
-       );
+      return this.http.post<User>(this.userUrl + "/register", u, this.httpOptions);
     }
 
     whoAmI(): Observable<User>{

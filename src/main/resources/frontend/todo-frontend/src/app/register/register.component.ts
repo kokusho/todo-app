@@ -3,6 +3,9 @@ import { FormControl } from '@angular/forms';
 import { FormGroup } from '@angular/forms';
 import { UserService } from '../user.service';
 import { User } from '../models/User';
+import { MessageService } from '../message.service';
+import { MessageType } from '../models/Message';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +19,7 @@ export class RegisterComponent implements OnInit {
       'password': new FormControl(''),
   });
 
-  constructor(public userService: UserService ) {
+  constructor(private router: Router, public userService: UserService, private messageService: MessageService ) {
   }
 
   ngOnInit(): void {
@@ -29,7 +32,20 @@ export class RegisterComponent implements OnInit {
       password: this.registerForm.value.password,
     }
 
-    userService.registerUser( user ).subscribe(val => console.log("VAL: ", val));;
+    userService.registerUser( user ).subscribe(
+      response => {
+        this.messageService.log("User successfully registered!", MessageType.Success);
+        this.router.navigate(["/login"]);
+      },
+      errorResponse => {
+        console.log("error messages when registering: ", errorResponse, errorResponse.error);
+        if(errorResponse.error != undefined && Array.isArray(errorResponse.error.messages)){
+          errorResponse.error.messages.forEach(msg => {
+            this.messageService.log(msg, MessageType.Danger);
+          })
+        }
+      }
+    );
   }
 
 }
