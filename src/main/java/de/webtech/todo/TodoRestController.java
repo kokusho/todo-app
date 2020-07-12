@@ -60,7 +60,7 @@ public class TodoRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> updateTodo(@PathVariable("id") Long todoId, @RequestBody @Valid Todo todo) {
+    public ResponseEntity<Object> updateTodo(@PathVariable("id") Long todoId, @RequestBody TodoTitle todoTitle) {
         Optional<Todo> byIdOpt = todoRepository.findById(todoId);
         if(byIdOpt.isEmpty()){
             return new ResponseEntity<>(new ResponseMessage("Todo to update with id "+ todoId + " was not found!"), HttpStatus.NOT_FOUND);
@@ -68,8 +68,9 @@ public class TodoRestController {
         if(!securityUtilsWrapper.getPrincipal().equals(byIdOpt.get().getAssignedUser().getUsername()) && !securityUtilsWrapper.getSubject().hasRole("ADMIN")){
             return new ResponseEntity<>(new ResponseMessage("You may not update this todo!"), HttpStatus.FORBIDDEN);
         }
-        todo.setId(todoId);
-        return new ResponseEntity<>(this.todoRepository.save(todo), HttpStatus.OK);
+        Todo newTodo = byIdOpt.get();
+        newTodo.setTitle(todoTitle.getTodoTitle());
+        return new ResponseEntity<>(this.todoRepository.save(newTodo), HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")

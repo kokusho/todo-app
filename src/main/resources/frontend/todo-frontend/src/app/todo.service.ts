@@ -62,6 +62,14 @@ export class TodoService {
       );
   }
 
+  updateTodoTitle(todoId: number, newTitle: string){
+    return this.http.put<Todo>(this.todoUrl + "/"+ todoId, {todoTitle: newTitle}, this.httpOptions)
+      .pipe(
+        tap((resultTodo) => this.log(`Successfully update todo with id: ${resultTodo.id}`, MessageType.Success)),
+        catchError(this.handleError<Todo>("updateTodo"))
+      );
+  }
+
   deleteTodo(todoId: number): Observable<void>{
     return this.http.delete<void>(this.todoUrl+"/"+todoId,this.httpOptions)
       .pipe(
